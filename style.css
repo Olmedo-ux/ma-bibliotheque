@@ -1,0 +1,512 @@
+:root {
+    --color-primary: #007bff; /* Bleu standard */
+    --color-secondary: #6c757d; /* Gris foncé */
+    --color-background: #f8f9fa; /* Arrière-plan clair */
+    --color-text: #212529; /* Texte sombre */
+    --color-success: #28a745; /* Vert pour succès */
+    --color-error: #dc3545; /* Rouge pour erreur */
+    --color-card-bg: #ffffff; /* Fond des cartes */
+    --shadow-light: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+* {
+    box-sizing: border-box; 
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: var(--color-background);
+    color: var(--color-text);
+    line-height: 1.6;
+    min-height: 100vh;
+    display: flex; /* Active Flexbox */
+    flex-direction: column; /* Mise en page verticale  */
+}
+
+/* Conteneur pour centrer le contenu */
+main {
+    flex-grow: 1; /* Permet à main de prendre l'espace restant */
+    width: 90%;
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: var(--color-background);
+}
+
+/*  EN-TÊTE ET NAVIGATION (FLEXBOX) */
+
+header {
+    background-color: var(--color-primary);
+    color: white;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.header-content {
+    padding: 20px 30px;
+    text-align: center;
+}
+
+.main-nav {
+    background-color: rgba(0, 0, 0, 0.1);
+    padding: 10px 0;
+}
+
+.main-nav ul {
+    list-style: none;
+    display: flex;
+    justify-content: center; /* Centre les éléments de la nav */
+    gap: 25px; /* Espace entre les liens */
+}
+
+.main-nav a {
+    color: white;
+    text-decoration: none;
+    padding: 5px 10px;
+    transition: background-color 0.3s;
+    border-radius: 4px;
+}
+
+.main-nav a:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+
+/* FORMULAIRES ET ÉLÉMENTS GÉNÉRAUX */
+
+.search h3 {
+    margin-bottom: 15px;
+    color: var(--color-primary);
+}
+
+.search form {
+    display: flex; /* Utilisation de Flexbox pour aligner l'input et le bouton */
+    gap: 10px;
+    padding: 20px;
+    background-color: var(--color-card-bg);
+    border-radius: 8px;
+    box-shadow: var(--shadow-light);
+    margin-bottom: 30px;
+}
+
+.search input[type="text"] {
+    flex-grow: 1; /* L'input prend le maximum d'espace */
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1em;
+}
+
+button, .btn-details, .btn-remove, .btn-primary {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    font-size: 1em;
+    cursor: pointer;
+    text-decoration: none; /* Pour les balises <a> */
+    transition: background-color 0.3s, transform 0.1s;
+    display: inline-block;
+    text-align: center;
+}
+
+button[type="submit"], .btn-primary {
+    background-color: var(--color-primary);
+    color: white;
+}
+
+button[type="submit"]:hover, .btn-primary:hover {
+    background-color: #0056b3;
+}
+
+.btn-details {
+    background-color: var(--color-secondary);
+    color: white;
+}
+.btn-details:hover {
+    background-color: #5a6268;
+}
+
+.btn-remove {
+    background-color: var(--color-error);
+    color: white;
+}
+.btn-remove:hover {
+    background-color: #c82333;
+}
+
+.message {
+    padding: 10px 15px;
+    border-radius: 4px;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+.message.success {
+    background-color: #d4edda;
+    color: var(--color-success);
+    border: 1px solid var(--color-success);
+}
+.message.error {
+    background-color: #f8d7da;
+    color: var(--color-error);
+    border: 1px solid var(--color-error);
+}
+
+/* GRILLE DE RÉSULTATS (CSS GRID) */
+
+.results-page h2 {
+    margin-bottom: 25px;
+    border-bottom: 2px solid #ccc;
+    padding-bottom: 10px;
+}
+
+.results-grid {
+    display: grid;
+    /* Crée une grille auto-ajustable : min(250px) et max(1fr) par colonne */
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); 
+    gap: 30px; /* Espace entre les cartes */
+    padding-top: 10px;
+}
+
+.book-result {
+    background-color: var(--color-card-bg);
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    display: flex; /* Utilisation de Flexbox pour le contenu de la carte */
+    flex-direction: column;
+    text-align: center;
+    transition: transform 0.2s;
+}
+
+.book-result:hover {
+    transform: translateY(-5px); /* Effet de survol subtil */
+}
+
+.book-result h3 {
+    font-size: 1.2em;
+    margin-bottom: 5px;
+    color: var(--color-primary);
+    min-height: 40px; /* Assure une hauteur minimale pour les titres */
+}
+
+.book-result p {
+    font-size: 0.9em;
+    color: var(--color-secondary);
+    margin-bottom: 15px;
+}
+
+/* Styles pour les miniatures de couverture */
+.result-with-cover {
+    height: 100%;
+}
+.result-cover-thumb {
+    width: 100%;
+    height: 200px; /* Hauteur fixe pour l'uniformité */
+    object-fit: cover; /* Assure que l'image couvre la zone sans déformation */
+    border-radius: 4px;
+    margin-bottom: 15px;
+}
+
+.result-text {
+    flex-grow: 1; /* Pousse le bouton en bas si pas de description */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+/*STYLES DES RÉSULTATS (results.php & index.php) */
+
+.results-grid {
+    display: grid;
+    /* 3 colonnes par défaut, ajustement pour les petits écrans */
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); 
+    gap: 30px;
+    margin-top: 30px;
+}
+
+.book-result {
+    background-color: white;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: transform 0.2s;
+}
+
+.book-result:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.result-cover-thumb {
+    max-width: 100%;
+    height: auto;
+    max-height: 250px; /* Limite la hauteur de l'image */
+    object-fit: contain;
+    margin-bottom: 15px;
+    border-radius: 4px;
+}
+
+.result-text {
+    width: 100%;
+    margin-top: auto; /* Pousser le bouton vers le bas */
+}
+
+.result-text h3 {
+    font-size: 1.2em;
+    margin-bottom: 5px;
+}
+
+.result-text p {
+    color: var(--color-secondary);
+    font-size: 0.9em;
+    margin-bottom: 15px;
+}
+
+.btn-details {
+    display: inline-block;
+    background-color: var(--color-primary);
+    color: white;
+    padding: 8px 15px;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: background-color 0.2s;
+    margin-top: 10px;
+}
+/* PAGE DÉTAILS (FLEXBOX) */
+
+.book-details-page {
+    padding: 30px;
+    background-color: var(--color-card-bg);
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.book-flex-container {
+    display: flex;
+    gap: 40px;
+    align-items: flex-start; /* Alignement en haut */
+}
+
+.book-cover-container {
+    flex-shrink: 0; /* Empêche l'image de rétrécir */
+    width: 300px;
+    max-width: 40%;
+}
+
+.book-cover-img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.book-info-text {
+    flex-grow: 1;
+}
+
+.book-info-text h2 {
+    color: var(--color-primary);
+    margin-bottom: 15px;
+    font-size: 2em;
+}
+
+.book-info-text p strong {
+    color: var(--color-secondary);
+}
+
+.description {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: var(--color-background);
+    border-left: 5px solid var(--color-primary);
+    border-radius: 4px;
+}
+
+.book-details-page form {
+    margin-top: 30px;
+}
+
+
+/*PAGE LISTE DE LECTURE (WISHLIST) */
+
+.wishlist-ul {
+    list-style: none;
+    padding: 0;
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.wishlist-item {
+    display: flex; /* Utilisation de Flexbox pour aligner les infos et le bouton */
+    align-items: center;
+    background-color: var(--color-card-bg);
+    padding: 15px 20px;
+    border-radius: 6px;
+    box-shadow: var(--shadow-light);
+}
+
+.wishlist-item .result-cover-thumb {
+    width: 70px;
+    height: 90px;
+    object-fit: cover;
+    margin-right: 15px;
+}
+
+.wishlist-item .item-info {
+    flex-grow: 1; /* Prend l'espace maximal */
+}
+
+.wishlist-item .btn-remove {
+    margin-left: auto; /* Pousse le bouton à droite */
+}
+
+/*PIED DE PAGE */
+
+footer {
+    background-color: var(--color-secondary);
+    color: white;
+    text-align: center;
+    padding: 20px;
+    margin-top: auto; /* Pousser le footer en bas de page */
+    font-size: 0.9em;
+}
+
+.footer-links a {
+    color: #ccc;
+    text-decoration: none;
+    margin: 0 10px;
+    transition: color 0.3s;
+}
+
+.footer-links a:hover {
+    color: white;
+}
+
+/*MEDIA QUERIES (RESPONSIVE) */
+
+@media (max-width: 900px) {
+    /* La grille peut passer à un minimum de 200px */
+    .results-grid {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); 
+    }
+}
+
+@media (max-width: 768px) {
+    main {
+        width: 95%; /* Plus large sur les petits écrans */
+        padding: 15px;
+    }
+
+    /* Navigation en colonne pour mobile */
+    .main-nav ul {
+        flex-direction: column; 
+        gap: 0; /* Suppression de l'espace pour maximiser l'écran */
+    }
+    .main-nav li {
+        width: 100%;
+        text-align: center;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    .main-nav a {
+        display: block;
+        padding: 10px 0;
+    }
+
+    /* Formulaire de recherche en colonne */
+    .search form {
+        flex-direction: column;
+    }
+
+    /* Page détails : l'image passe au-dessus du texte (Flexbox direction) */
+    .book-flex-container {
+        flex-direction: column;
+        align-items: center;
+    }
+    .book-cover-container {
+        width: 70%; 
+        max-width: 250px;
+        margin-bottom: 20px;
+    }
+    .book-info-text {
+        text-align: center;
+    }
+    .description {
+        text-align: left; /* Rétablir l'alignement du texte dans la description */
+    }
+}
+
+@media (max-width: 480px) {
+    /* Pour les très petits écrans, une seule colonne de résultats */
+    .results-grid {
+        grid-template-columns: 1fr;
+    }
+
+    /* Les éléments de la liste de lecture s'empilent */
+    .wishlist-item {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    .wishlist-item .item-info {
+        width: 100%;
+        text-align: center;
+        margin-bottom: 10px;
+    }
+    .wishlist-item .result-cover-thumb {
+        margin-right: 0;
+        margin-bottom: 10px;
+    }
+    .wishlist-item .btn-remove {
+        width: 100%;
+        margin-left: 0;
+    }
+}
+/* STYLES DES TABLEAUX */
+
+.data-table {
+    width: 100%;
+    border-collapse: collapse; 
+    margin-top: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    background-color: white;
+}
+
+/* Style de l'en-tête du tableau */
+.data-table thead th {
+    background-color: #007bff; /* Bleu standard */
+    color: white;
+    
+    padding: 12px 15px;
+    text-align: left;
+    font-weight: bold;
+}
+
+/* Style des cellules du corps */
+.data-table tbody td {
+    padding: 10px 15px;
+    border-bottom: 1px solid #ddd;
+}
+
+/* Alternance de couleurs pour une meilleure lisibilité */
+.data-table tbody tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+/* Effet de survol */
+.data-table tbody tr:hover {
+    background-color: #e9ecef;
+    cursor: default;
+}
+
+/* Style pour l'état "En cours..." */
+.status-active {
+    color: var(--color-success); 
+    font-weight: bold;
+    font-style: italic;
+}
