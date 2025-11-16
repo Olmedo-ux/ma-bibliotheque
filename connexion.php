@@ -11,6 +11,7 @@ if (isset($_SESSION['lecteur_id'])) {
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // ... (Votre code de traitement du formulaire reste ici) ...
     $email = htmlspecialchars($_POST['email']);
     $password = $_POST['password'];
 
@@ -23,11 +24,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         
         // Vérification du mot de passe haché
         if (password_verify($password, $user['mot_de_passe'])) {
-            // Connexion réussie : stockage des informations en session
-            $_SESSION['lecteur_id'] = $user['id'];
-            $_SESSION['lecteur_nom'] = $user['nom'];
-            $_SESSION['lecteur_prenom'] = $user['prenom'];
-            
+            // ... (Connexion réussie) ...
             header("Location: index.php"); // Redirection vers la page d'accueil
             exit;
         } else {
@@ -37,7 +34,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $message = "<p class='message error'>Email ou mot de passe incorrect.</p>";
     }
 }
-$conn = null;
+// ➡️ DÉPLACER LA FERMETURE DE LA CONNEXION ICI, APRÈS TOUT LE TRAITEMENT
+$conn = null; 
+session_regenerate_id(true); // 👈 Ajout de la régénération
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -67,4 +66,5 @@ $conn = null;
 
     </main>
 </body>
+
 </html>
